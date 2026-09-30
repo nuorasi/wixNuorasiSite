@@ -6,11 +6,21 @@ console.log(
     document.getElementById('particleCanvas')
 );
 // VERSION: 2026-09-26-12:48
-console.log(">>>>>>>>>>>>>>>>>>>>THREE.js: THREE THREE THREE THREE THREE THREEX");
+
 
 // 1. Setup Three.js Scene, Camera, and Renderer
 const scene = new THREE.Scene();
 
+console.log(">>>>>>>>>>>>>>>>>>>>THREE.js:  window.innerWidth="+ window.innerWidth+" : window.innerHeight="+ window.innerHeight);
+/*
+PerspectiveCamera(fov, aspect, near, far).
+    Camera Parameters
+• fov (Field of View): The vertical field of view measured in degrees. It defines how wide or narrow the camera view is (default is 50).
+• aspect (Aspect Ratio): The ratio of the canvas width divided by its height (default is 1, usually calculated as width / height).
+• near (Near Clipping Plane): The closest distance the camera can render objects (default is 0.1). Objects closer than this value are clipped out of the scene.
+• far (Far Clipping Plane): The furthest distance the camera can render objects (default is 2000). Objects farther than this value are clipped out.
+
+*/
 const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,

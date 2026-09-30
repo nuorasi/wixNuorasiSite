@@ -171,7 +171,7 @@ const colors = [
     // new THREE.Color('#FBBC05'), // Yellow
     // new THREE.Color('#34A853')  // Green
     new THREE.Color('#539BC4'), // Yellow
-    new THREE.Color('#D6Be64')  // Green
+   // new THREE.Color('#D6Be64')  // Green
 
 ];
 

@@ -1,4 +1,4 @@
-console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.4 revised");
+console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.5 VERSION: 09-30-26 06:22");
 
 console.log(
     "Canvas:",

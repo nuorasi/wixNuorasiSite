@@ -2,187 +2,187 @@
 <html>
 
 <head>
-<link rel="shortcut icon" href="{{ asset('https://cdn.jsdelivr.net/gh/nuorasi/newTngSiteAssets/tngFavicon.jpg') }}">
-<meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{ asset('https://cdn.jsdelivr.net/gh/nuorasi/newTngSiteAssets/tngFavicon.jpg') }}">
+    <meta charset="UTF-8">
 
-<style>
-html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
 
-body {
-    position: relative;
-}
-
-
-/* =========================================================
-   PARTICLE LAYER
-   ========================================================= */
-
-#particleCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    display: block;
-
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* =========================================================
-   LOGO LAYER
-   ========================================================= */
-
-#logoSVG {
-    position: absolute;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    z-index: 2;
-
-    pointer-events: none;
-}
+        body {
+            position: relative;
+        }
 
 
-/* =========================================================
-   INITIAL HERO STATE
-   ========================================================= */
+        /* =========================================================
+           PARTICLE LAYER
+           ========================================================= */
 
-.hero-arc-reveal {
-    transform-box: fill-box;
-    transform-origin: 0% 50%;
-    transform: scaleX(0);
-}
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
 
+            width: 100vw;
+            height: 100vh;
 
-/* Wordmark starts hidden */
+            display: block;
 
-#hero-wordmark {
-    opacity: 0;
-    transform: translateY(14px);
-}
+            z-index: 0;
+            pointer-events: none;
+        }
 
+        /* =========================================================
+           LOGO LAYER
+           ========================================================= */
 
-/* Tagline starts hidden */
+        #logoSVG {
+            position: absolute;
+            inset: 0;
 
-#hero-tagline {
-    opacity: 0;
-    transform: translateY(10px);
-}
+            width: 100%;
+            height: 100%;
 
+            display: block;
 
-/* =========================================================
-   START ANIMATION
-   ========================================================= */
+            z-index: 2;
 
-body.hero-animate #hero-gold-reveal {
-    animation:
-        hero-reveal-arc
-        0.8s
-        cubic-bezier(.22, 1, .36, 1)
-        0.05s
-        forwards;
-}
+            pointer-events: none;
+        }
 
 
-body.hero-animate #hero-blue-reveal {
-    animation:
-        hero-reveal-arc
-        0.9s
-        cubic-bezier(.22, 1, .36, 1)
-        0.22s
-        forwards;
-}
+        /* =========================================================
+           INITIAL HERO STATE
+           ========================================================= */
+
+        .hero-arc-reveal {
+            transform-box: fill-box;
+            transform-origin: 0% 50%;
+            transform: scaleX(0);
+        }
 
 
-body.hero-animate #hero-wordmark {
-    animation:
-        hero-fade-up
-        0.65s
-        cubic-bezier(.22, 1, .36, 1)
-        0.45s
-        forwards;
-}
+        /* Wordmark starts hidden */
+
+        #hero-wordmark {
+            opacity: 0;
+            transform: translateY(14px);
+        }
 
 
-body.hero-animate #hero-tagline {
-    animation:
-        hero-fade-up
-        0.65s
-        cubic-bezier(.22, 1, .36, 1)
-        0.70s
-        forwards;
-}
+        /* Tagline starts hidden */
+
+        #hero-tagline {
+            opacity: 0;
+            transform: translateY(10px);
+        }
 
 
-/* =========================================================
-   ARC ANIMATION
-   ========================================================= */
+        /* =========================================================
+           START ANIMATION
+           ========================================================= */
 
-@keyframes hero-reveal-arc {
-
-    from {
-        transform: scaleX(0);
-    }
-
-    to {
-        transform: scaleX(1);
-    }
-
-}
+        body.hero-animate #hero-gold-reveal {
+            animation:
+                    hero-reveal-arc
+                    0.8s
+                    cubic-bezier(.22, 1, .36, 1)
+                    0.05s
+                    forwards;
+        }
 
 
-/* =========================================================
-   TEXT ANIMATION
-   ========================================================= */
-
-@keyframes hero-fade-up {
-
-    from {
-        opacity: 0;
-        transform: translateY(14px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
+        body.hero-animate #hero-blue-reveal {
+            animation:
+                    hero-reveal-arc
+                    0.9s
+                    cubic-bezier(.22, 1, .36, 1)
+                    0.22s
+                    forwards;
+        }
 
 
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
+        body.hero-animate #hero-wordmark {
+            animation:
+                    hero-fade-up
+                    0.65s
+                    cubic-bezier(.22, 1, .36, 1)
+                    0.45s
+                    forwards;
+        }
 
-@media (prefers-reduced-motion: reduce) {
 
-    .hero-arc-reveal {
-        transform: scaleX(1) !important;
-    }
+        body.hero-animate #hero-tagline {
+            animation:
+                    hero-fade-up
+                    0.65s
+                    cubic-bezier(.22, 1, .36, 1)
+                    0.70s
+                    forwards;
+        }
 
-    #hero-wordmark,
-    #hero-tagline {
-        opacity: 1 !important;
-        transform: none !important;
-    }
 
-}
+        /* =========================================================
+           ARC ANIMATION
+           ========================================================= */
 
-</style>
+        @keyframes hero-reveal-arc {
+
+            from {
+                transform: scaleX(0);
+            }
+
+            to {
+                transform: scaleX(1);
+            }
+
+        }
+
+
+        /* =========================================================
+           TEXT ANIMATION
+           ========================================================= */
+
+        @keyframes hero-fade-up {
+
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+           ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .hero-arc-reveal {
+                transform: scaleX(1) !important;
+            }
+
+            #hero-wordmark,
+            #hero-tagline {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -201,86 +201,86 @@ body.hero-animate #hero-tagline {
      ======================================================= -->
 <section id="hero1">
 
-<!-- =======================================================
-     NUORASI HERO LOGO
-     ======================================================= -->
+    <!-- =======================================================
+         NUORASI HERO LOGO
+         ======================================================= -->
 
-<svg
-    id="logoSVG"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 1500 450"
-    preserveAspectRatio="xMidYMid meet"
-    role="img"
-    aria-label="The Nuorasi Group"
->
-
-
-    <!-- ===================================================
-         CLIPPING REGIONS
-         =================================================== -->
-
-    <defs>
-
-        <clipPath id="hero-gold-clip">
-
-            <rect
-                id="hero-gold-reveal"
-                class="hero-arc-reveal"
-                x="300"
-                y="300"
-                width="850"
-                height="140"
-            />
-
-        </clipPath>
-
-
-        <clipPath id="hero-blue-clip">
-
-            <rect
-                id="hero-blue-reveal"
-                class="hero-arc-reveal"
-                x="400"
-                y="300"
-                width="850"
-                height="140"
-            />
-
-        </clipPath>
-
-    </defs>
-
-
-
-    <!-- ===================================================
-         COMPLETE LOGO ARTWORK
-
-         The artwork is moved upward 60 SVG units so that
-         its VISUAL center matches the center of the
-         1500 x 450 viewBox.
-         =================================================== -->
-
-    <g
-        id="logoArtwork"
-        transform="translate(0 -60)"
+    <svg
+            id="logoSVG"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1500 450"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            aria-label="The Nuorasi Group"
     >
 
 
-        <!-- =================================================
-             GOLD ARC
-             ================================================= -->
+        <!-- ===================================================
+             CLIPPING REGIONS
+             =================================================== -->
+
+        <defs>
+
+            <clipPath id="hero-gold-clip">
+
+                <rect
+                        id="hero-gold-reveal"
+                        class="hero-arc-reveal"
+                        x="300"
+                        y="300"
+                        width="850"
+                        height="140"
+                />
+
+            </clipPath>
+
+
+            <clipPath id="hero-blue-clip">
+
+                <rect
+                        id="hero-blue-reveal"
+                        class="hero-arc-reveal"
+                        x="400"
+                        y="300"
+                        width="850"
+                        height="140"
+                />
+
+            </clipPath>
+
+        </defs>
+
+
+
+        <!-- ===================================================
+             COMPLETE LOGO ARTWORK
+
+             The artwork is moved upward 60 SVG units so that
+             its VISUAL center matches the center of the
+             1500 x 450 viewBox.
+             =================================================== -->
 
         <g
-            transform="translate(0 -280)"
-            clip-path="url(#hero-gold-clip)"
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            shape-rendering="geometricPrecision"
+                id="logoArtwork"
+                transform="translate(0 -60)"
         >
 
-            <path
-                fill="#F2C229"
-                d="
+
+            <!-- =================================================
+                 GOLD ARC
+                 ================================================= -->
+
+            <g
+                    transform="translate(0 -280)"
+                    clip-path="url(#hero-gold-clip)"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    shape-rendering="geometricPrecision"
+            >
+
+                <path
+                        fill="#F2C229"
+                        d="
                     M 352.00 412.00
                     C 472.67 374.21 593.33 342.03 714.00 334.00
                     C 834.67 325.01 955.33 329.66 1076.00 364.00
@@ -289,27 +289,27 @@ body.hero-animate #hero-tagline {
                     C 593.33 349.92 472.67 379.45 352.00 413.00
                     Z
                 "
-            />
+                />
 
-        </g>
+            </g>
 
 
 
-        <!-- =================================================
-             BLUE ARC
-             ================================================= -->
+            <!-- =================================================
+                 BLUE ARC
+                 ================================================= -->
 
-        <g
-            transform="translate(0 -280)"
-            clip-path="url(#hero-blue-clip)"
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            shape-rendering="geometricPrecision"
-        >
+            <g
+                    transform="translate(0 -280)"
+                    clip-path="url(#hero-blue-clip)"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    shape-rendering="geometricPrecision"
+            >
 
-            <path
-                fill="#04A8E2"
-                d="
+                <path
+                        fill="#04A8E2"
+                        d="
                     M 449.00 402.00
                     C 572.04 361.74 695.09 344.86 818.13 345.00
                     C 940.76 345.35 1063.37 368.94 1186.00 410.00
@@ -318,283 +318,293 @@ body.hero-animate #hero-tagline {
                     C 695.09 350.37 572.04 373.03 449.00 403.00
                     Z
                 "
-            />
+                />
+
+            </g>
+
+
+
+            <!-- =================================================
+                 WORDMARK
+                 ================================================= -->
+
+            <text
+                    id="hero-wordmark"
+                    x="750"
+                    y="230"
+                    text-anchor="middle"
+                    font-family="Avenir Next, Montserrat, Helvetica Neue, Arial, sans-serif"
+                    font-size="118"
+                    font-weight="300"
+                    letter-spacing="-4"
+            ><tspan fill="#152d70">the </tspan><tspan
+                    fill="#0B8FD3"
+                    font-weight="400"
+            >nuorasi</tspan><tspan fill="#152d70"> group</tspan></text>
+
+
+
+            <!-- =================================================
+                 TAGLINE
+                 ================================================= -->
+
+            <text
+                    id="hero-tagline"
+                    x="750"
+                    y="308"
+                    text-anchor="middle"
+                    font-family="Avenir Next, Montserrat, Helvetica Neue, Arial, sans-serif"
+                    font-size="42"
+                    font-weight="500"
+                    letter-spacing="0.8"
+                    fill="#152d70"
+            >Powering Intelligence. Engineering the Future.</text>
+
 
         </g>
 
 
-
-        <!-- =================================================
-             WORDMARK
-             ================================================= -->
-
-        <text
-            id="hero-wordmark"
-            x="750"
-            y="230"
-            text-anchor="middle"
-            font-family="Avenir Next, Montserrat, Helvetica Neue, Arial, sans-serif"
-            font-size="118"
-            font-weight="300"
-            letter-spacing="-4"
-        ><tspan fill="#152d70">the </tspan><tspan
-            fill="#0B8FD3"
-            font-weight="400"
-        >nuorasi</tspan><tspan fill="#152d70"> group</tspan></text>
+    </svg>
 
 
 
-        <!-- =================================================
-             TAGLINE
-             ================================================= -->
+    <!-- =======================================================
+         THREE.JS
+         ======================================================= -->
 
-        <text
-            id="hero-tagline"
-            x="750"
-            y="308"
-            text-anchor="middle"
-            font-family="Avenir Next, Montserrat, Helvetica Neue, Arial, sans-serif"
-            font-size="42"
-            font-weight="500"
-            letter-spacing="0.8"
-            fill="#152d70"
-        >Powering Intelligence. Engineering the Future.</text>
-
-
-    </g>
-
-
-</svg>
-
-
-
-<!-- =======================================================
-     THREE.JS
-     ======================================================= -->
-
-<script>
- 	   console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>  wixEmbed html code starting");
-       console.log("Start Loading...... https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
-       </script>
-       <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
-</script>
-       <script>
-       console.log(">>>>End Loading https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
-
-</script>
- <script>
-		function resizeParticleCanvas() {
-		 console.log("resizeParticleCanvas CALLED");
-
-    const canvas = document.getElementById('particleCanvas');
-
-    if (!canvas) return;
-
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    canvas.style.position = "absolute";
-    canvas.style.top = "0px";
-    canvas.style.left = "0px";
-    canvas.style.width = width + "px";
-   canvas.style.height = height + "px";
-  //canvas.style.height = "500px";
-
-    if (typeof renderer !== "undefined") {
-
-        renderer.setSize(
-            width,
-            height,
-            false
-        );
-    }
-
-    if (typeof camera !== "undefined") {
-
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-
-    }
-
-}
-
-		window.addEventListener(
-    'resize',
-    resizeParticleCanvas
-);
-
-window.addEventListener(
-    'orientationchange',
-    resizeParticleCanvas
-);
-
-window.addEventListener(
-    'load',
-    () => {
-        setTimeout(() => {
-            resizeParticleCanvas();
-        }, 1000);
-    }
-);
-		const hero1 = document.getElementById('hero1');
-
-		if (hero1) {
-
-    	const resizeObserver =
-     	   new ResizeObserver(() => {
-
-            resizeParticleCanvas();
-
-        });
-
-    	resizeObserver.observe(hero1);
-}
- </script>
-
-<!-- =======================================================
-     PARTICLE ANIMATION
-     ======================================================= -->
-
-<!--
-<script src="https://drive.google.com/file/d/1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9/view?usp=sharing";>
-  </script>
- -->
     <script>
-    console.log("LOADING https://cdn.jsdelivr.net/gh/nuorasi/newTngSiteAssets@2b6318a/newParticle.js")
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>  wixEmbed html code starting VS 3.1");
+        console.log("Start Loading...... https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
     </script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
+    <script>
+        console.log(">>>>End Loading https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
 
-    	<script src="https://cdn.jsdelivr.net/gh/nuorasi/newTngSiteAssets@main/newParticle.js"></script>
+    </script>
+    <script>
+        console.log("******************* STARTING UP PARTICLE CODE 0930 7:36")
 
-    	 <script>
-//
-// const fileId = '1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9';
-// const driveUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-//
-// // Route through a public CORS proxy
-// const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(driveUrl)}`;
-//
-// async function loadDriveAsset() {
-//   try {
-//     const response = await fetch(proxyUrl);
-//     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-//
-//     const data = await response.text(); // Use .json() if parsing JSON
-//     console.log('File Content:', data);
-//   } catch (error) {
-//     console.error('Error fetching file:', error);
-//   }
-// }
+        function resizeParticleCanvas() {
+            console.log("resizeParticleCanvas CALLED");
 
-//loadDriveAsset();
+            const canvas = document.getElementById('particleCanvas');
 
+            if (!canvas) return;
 
+            const width = window.innerWidth;
+            const height = window.innerHeight;
 
-    	console.log("End Loading https://drive.google.com/file/d/1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9/view?usp=sharing")
+            canvas.style.position = "absolute";
+            canvas.style.top = "0px";
+            canvas.style.left = "0px";
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+            //canvas.style.height = "500px";
 
-</script>
+            if (typeof renderer !== "undefined") {
 
+                renderer.setSize(
+                    width,
+                    height,
+                    false
+                );
+            }
 
-<!-- =======================================================
-     HERO ANIMATION CONTROL
-     ======================================================= -->
+            if (typeof camera !== "undefined") {
 
-<script>
-
-
-function positionHeroIndicator(inHeight) {
-
-console.log(" >>>>>>>>>>>>>>>>>>>>  in function positionHeroIndicator() indicator = comp-muin56ou ")
-    const indicator = document.getElementById('comp-muin56ou');
-    console.log("document.getElementById('comp-muin56ou' = "+document.getElementById('comp-muin56ou'))
-    const hero = document.getElementById('hero1');
-
-    if (!indicator || !hero) {
-        console.log("Indicator or hero1 not found");
-        return;
-    }
-
-    const heroRect = hero.getBoundingClientRect();
-
-    // Absolute page position of hero1
-    const heroTop = heroRect.top + window.scrollY;
-
-    // Position indicator just above hero1
-    indicator.style.position = 'absolute';
-
-    indicator.style.top = inHeight + 'px';
-
-    // Position near right side of page
-    indicator.style.right = '30px';
-    indicator.style.left = 'auto';
-
-    console.log("Indicator positioned at:", indicator.style.top);
-}
-
-
-window.addEventListener('load', positionHeroIndicator);
-window.addEventListener('resize', positionHeroIndicator);
-
-(function () {
-
-    let heroAnimationStarted = false;
-
-
-    function startHeroAnimation() {
-
-        if (heroAnimationStarted) {
-            return;
-        }
-
-        heroAnimationStarted = true;
-
-        console.log(
-            "Nuorasi Hero: starting logo animation"
-        );
-
-        document.body.classList.add(
-            "hero-animate"
-        );
-
-    }
-
-
-    /*
-     * Receive animation command from Wix parent page.
-     */
-
-    window.addEventListener(
-        "message",
-        function (event) {
-
-            if (
-                event.data &&
-                event.data.type ===
-                "nuorasi-start-hero-animation"
-            ) {
-
-                startHeroAnimation();
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
 
             }
 
         }
-    );
+
+        window.addEventListener(
+            'resize',
+            resizeParticleCanvas
+        );
+
+        window.addEventListener(
+            'orientationchange',
+            resizeParticleCanvas
+        );
+
+        window.addEventListener(
+            'load',
+            () => {
+                setTimeout(() => {
+                    resizeParticleCanvas();
+                }, 1000);
+            }
+        );
+        const hero1 = document.getElementById('hero1');
+
+        if (hero1) {
+
+            const resizeObserver =
+                new ResizeObserver(() => {
+
+                    resizeParticleCanvas();
+
+                });
+
+            resizeObserver.observe(hero1);
+        }
+    </script>
+
+    <!-- =======================================================
+         PARTICLE ANIMATION
+         ======================================================= -->
+
+    <!--
+    <script src="https://drive.google.com/file/d/1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9/view?usp=sharing";>
+      </script>
+     -->
+    <script>
+        console.log("LOADING https://cdn.jsdelivr.net/gh/nuorasi/wixNuorasiSite@84a1d26/newParticle.js")
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/gh/nuorasi/wixNuorasiSite@84a1d26/newParticle.js"></script>
+
+    <script>
+        //
+        // const fileId = '1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9';
+        // const driveUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+        //
+        // // Route through a public CORS proxy
+        // const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(driveUrl)}`;
+        //
+        // async function loadDriveAsset() {
+        //   try {
+        //     const response = await fetch(proxyUrl);
+        //     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        //
+        //     const data = await response.text(); // Use .json() if parsing JSON
+        //     console.log('File Content:', data);
+        //   } catch (error) {
+        //     console.error('Error fetching file:', error);
+        //   }
+        // }
+
+        //loadDriveAsset();
 
 
-    /*
-     * Safety fallback.
-     */
 
-    setTimeout(
-        startHeroAnimation,
-        50
-    );
+        console.log("End Loading https://drive.google.com/file/d/1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9/view?usp=sharing")
+
+    </script>
 
 
-})();
+    <!-- =======================================================
+         HERO ANIMATION CONTROL
+         ======================================================= -->
 
-console.log("the end")
-</script>
+    <script>
+
+
+        function positionHeroIndicator(inHeight) {
+
+            console.log(" >>>>>>>>>>>>>>>>>>>>  in function positionHeroIndicator() indicator = comp-muin56ou ")
+            const indicator = document.getElementById('comp-muin56ou');
+            console.log("document.getElementById('comp-muin56ou' = "+document.getElementById('comp-muin56ou'))
+            const hero = document.getElementById('hero1');
+
+            if (!indicator || !hero) {
+                console.log("Indicator or hero1 not found");
+                return;
+            }
+
+            const heroRect = hero.getBoundingClientRect();
+
+            // Absolute page position of hero1
+            const heroTop = heroRect.top + window.scrollY;
+
+            // Position indicator just above hero1
+            indicator.style.position = 'absolute';
+
+            indicator.style.top = inHeight + 'px';
+
+            // Position near right side of page
+            indicator.style.right = '30px';
+            indicator.style.left = 'auto';
+
+            console.log("Indicator positioned at:", indicator.style.top);
+        }
+
+
+        window.addEventListener('load', positionHeroIndicator);
+        window.addEventListener('resize', positionHeroIndicator);
+
+        (function () {
+
+            let heroAnimationStarted = false;
+
+
+            function startHeroAnimation() {
+
+                if (heroAnimationStarted) {
+                    return;
+                }
+
+                heroAnimationStarted = true;
+
+                console.log(
+                    "Nuorasi Hero: starting logo animation"
+                );
+
+                document.body.classList.add(
+                    "hero-animate"
+                );
+
+            }
+
+
+            /*
+             * Receive animation command from Wix parent page.
+             */
+
+            window.addEventListener(
+                "message",
+                function (event) {
+
+                    if (
+                        event.data &&
+                        event.data.type ===
+                        "nuorasi-start-hero-animation"
+                    ) {
+
+                        startHeroAnimation();
+
+                    }
+
+                }
+            );
+
+
+            /*
+             * Safety fallback.
+             */
+
+            setTimeout(
+                startHeroAnimation,
+                50
+            );
+
+
+        })();
+
+        function jogHomePage() {
+            console.log("In function jogHomePage")
+            window.scrollBy({
+                top: 300,
+                behavior: "smooth"
+            });
+        }
+
+        console.log("the end")
+    </script>
 
 
 </body>

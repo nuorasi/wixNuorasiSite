@@ -130,13 +130,19 @@ const geometry =
 
 
 // Use a MeshPhongMaterial for a nice 3D lighting effect
+// const material =
+//     new THREE.MeshPhongMaterial({
+//         color: 0xffffff,
+//         shininess: 80
+//     });
+
 const material =
     new THREE.MeshPhongMaterial({
         color: 0xffffff,
-        shininess: 80
+        shininess: 80,
+        transparent: true,
+        opacity: 0.60
     });
-
-
 // Add lights to make the orbs dimensional
 const ambientLight =
     new THREE.AmbientLight(
@@ -214,7 +220,7 @@ const targetPosition =
             0,
             0
         );
-    
+
     vec.unproject(camera);
 
     const dir =

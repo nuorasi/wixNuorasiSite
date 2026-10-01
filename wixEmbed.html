@@ -326,6 +326,7 @@
 
             <!-- =================================================
                  WORDMARK
+
                  ================================================= -->
 
             <text
@@ -373,7 +374,7 @@
          ======================================================= -->
 
     <script>
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>  wixEmbed html code starting VS 3.1");
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>  wixEmbed html code starting VS 3.2");
         console.log("Start Loading...... https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
     </script>
     <script
@@ -385,6 +386,51 @@
     </script>
     <script>
         console.log("******************* STARTING UP PARTICLE CODE 0930 7:36")
+        //REPOSITION LOGO
+        function centerLogoOnWordmark() {
+            console.log(">>>>>>>>>>>> ident 2847 function centerLogoOnWordmark " );
+            const svg = document.getElementById("logoSVG");
+            const artwork = document.getElementById("logoArtwork");
+            const wordmark = document.getElementById("hero-wordmark");
+
+            if (!svg || !artwork || !wordmark) {
+                console.log("Logo centering elements not found");
+                return;
+            }
+
+            artwork.removeAttribute("transform");
+
+            const bbox = wordmark.getBBox();
+
+            const viewBox = svg.viewBox.baseVal;
+
+            const svgCenterY =
+                viewBox.y +
+                (viewBox.height / 2);
+
+            const wordmarkCenterY =
+                bbox.y +
+                (bbox.height / 2);
+
+            const offsetY =
+                svgCenterY -
+                wordmarkCenterY;
+
+            artwork.setAttribute(
+                "transform",
+                `translate(0 ${offsetY})`
+            );
+
+            console.log(
+                "Wordmark dynamically centered:",
+                {
+                    svgCenterY,
+                    wordmarkCenterY,
+                    offsetY
+                }
+            );
+        }
+
 
         function resizeParticleCanvas() {
             console.log("resizeParticleCanvas CALLED");
@@ -418,17 +464,24 @@
                 camera.updateProjectionMatrix();
 
             }
-
+            console.log(">>>>>>>>>>>> DEBUG Ident 1 ");
+            centerLogoOnWordmark();
         }
+
+
 
         window.addEventListener(
             'resize',
-            resizeParticleCanvas
+            resizeParticleCanvas()
+
+
         );
 
         window.addEventListener(
             'orientationchange',
-            resizeParticleCanvas
+            resizeParticleCanvas()
+
+
         );
 
         window.addEventListener(
@@ -436,9 +489,25 @@
             () => {
                 setTimeout(() => {
                     resizeParticleCanvas();
+
+
                 }, 1000);
             }
         );
+        // const hero1 = document.getElementById('hero1');
+        //
+        // if (hero1) {
+        //
+        //     const resizeObserver =
+        //         new ResizeObserver(() => {
+        //
+        //             resizeParticleCanvas();
+        //
+        //         });
+        //
+        //     resizeObserver.observe(hero1);
+        // }
+
         const hero1 = document.getElementById('hero1');
 
         if (hero1) {
@@ -446,7 +515,13 @@
             const resizeObserver =
                 new ResizeObserver(() => {
 
+                    console.log(
+                        "Hero size changed"
+                    );
+
                     resizeParticleCanvas();
+
+
 
                 });
 
@@ -603,31 +678,53 @@
             });
         }
 
-        console.log("the end")
 
 
 
 
-        function resizeHero() {
-            console.log("In hero resizeHero function");
-            const section = document.getElementById('comp-mshsf5ka');
+        // function resizeHero() {
+        //     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Ident 278681  ****** In wixEmbed  ----- hero resizeHero function");
+        //     const section = document.getElementById('comp-mshsf5ka');
+        //     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Ident 278681  ****** In wixEmbed  ----- hero resizeHero function ->section:", section);
+        //     if (!section) return;
+        //
+        //     const heroHeight = window.innerHeight;
+        //
+        //     section.style.minHeight = heroHeight + 'px';
+        //
+        //     console.log("Hero height from newParticle.js:", heroHeight);
+        // }
+        //
+        // resizeHero();
 
-            if (!section) return;
+        // window.addEventListener('load', resizeHero);
+        // window.addEventListener('resize', resizeHero);
+        console.log(">>>>>>>>>>>> PRE ident 2846 - pre function centerLogoOnWordmark " );
 
-            const heroHeight = window.innerHeight;
 
-            section.style.minHeight = heroHeight + 'px';
+        window.addEventListener("load", () => {
 
-            console.log("Hero height from newParticle.js:", heroHeight);
-        }
+            document.fonts.ready.then(() => {
+                console.log(">>>>>>>>>>>> DEBUG Ident 1 ");
 
-        resizeHero();
+                centerLogoOnWordmark();
 
-        window.addEventListener('load', resizeHero);
-        window.addEventListener('resize', resizeHero);
+            });
+
+        });
+
+        //
+        // window.addEventListener(
+        //     "resize",
+        //     centerLogoOnWordmark
+        // );
+
+
+        console.log("Ident 9393 the end")
+
     </script>
-    </script>
 
+</section>
 
 </body>
 

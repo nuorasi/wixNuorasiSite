@@ -1,11 +1,11 @@
 
-console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.54 VERSION: 09-30-26 07:20");
+console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.55 VERSION: 09-30-26 01:20");
 
 console.log(
     "Canvas:",
     document.getElementById('particleCanvas')
 );
-// VERSION: 2026-09-26-12:48
+
 
 
 // 1. Setup Three.js Scene, Camera, and Renderer
@@ -201,13 +201,20 @@ const targetPosition =
     camera.updateMatrixWorld();
     camera.updateProjectionMatrix();
 
+    // const vec =
+    //     new THREE.Vector3(
+    //         -0.4,
+    //         0.4,
+    //         0.5
+    //     );
+
     const vec =
         new THREE.Vector3(
-            -0.4,
-            0.4,
-            0.5
+            0,
+            0,
+            0
         );
-
+    
     vec.unproject(camera);
 
     const dir =

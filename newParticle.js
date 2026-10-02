@@ -117,7 +117,7 @@ window.addEventListener(
 resizeRenderer();
 
 // 2. Setup Particles (Swarming Orbs)
-const particleCount = 1300;
+const particleCount = 800;
 
 
 // Use a SphereGeometry for the orbs

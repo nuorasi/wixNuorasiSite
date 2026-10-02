@@ -139,9 +139,9 @@ const geometry =
 const material =
     new THREE.MeshPhongMaterial({
         color: 0xffffff,
-        shininess: 80,
+        shininess: 100,
         transparent: true,
-        opacity: 0.60
+        opacity: 0.80
     });
 // Add lights to make the orbs dimensional
 const ambientLight =

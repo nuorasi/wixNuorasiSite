@@ -1,0 +1,21 @@
+<!-- Include Lenis via CDN -->
+<script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/lenis@1/dist/lenis.css">
+
+<script>
+    // Initialize Lenis
+    console.log("Initialize Lenis");
+    const lenis = new Lenis({
+        duration: 2.2, // Scroll duration (higher = slower/more inertia)
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
+        smoothWheel: true,
+    });
+
+    // Request Animation Frame Loop
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+</script>

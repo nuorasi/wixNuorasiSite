@@ -1,0 +1,80 @@
+<style>
+    /* Hard suppress the lower hero image from frame 0 */
+    [data-id="comp-ms7sxr3m5"] img,
+    #comp-ms7sxr3m5 img {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: opacity 0.5s ease-in-out !important;
+    }
+
+    /* Revealed state applied after the SVG and extra delay finish */
+    [data-id="comp-ms7sxr3m5"] img.svg-revealed,
+    #comp-ms7sxr3m5 img.svg-revealed {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+</style>
+
+<script>
+    (function () {
+        // SET YOUR EXTRA DELAY HERE (in milliseconds)
+        // 300ms is usually the sweet spot to ensure SVG vector rendering is 100% finished.
+        const EXTRA_DELAY_MS = 3000;
+
+        function handleImageDeferral() {
+            const hero = document.querySelector('[data-id="comp-ms7sxr3m5"]') || document.getElementById('comp-ms7sxr3m5');
+            if (!hero) return;
+
+            const img = hero.querySelector('img');
+            if (!img) return;
+
+            // Instantly hide and strip image references to stop early network rendering
+            const realSrc = img.getAttribute('src');
+            const realSrcset = img.getAttribute('srcset');
+
+            if (realSrc) img.removeAttribute('src');
+            if (realSrcset) img.removeAttribute('srcset');
+
+            function loadAndReveal() {
+                // Add the extra safety delay after SVG is detected
+                setTimeout(function () {
+                    if (realSrc) img.setAttribute('src', realSrc);
+                    if (realSrcset) img.setAttribute('srcset', realSrcset);
+
+                    // Force browser repaint step before adding opacity class
+                    requestAnimationFrame(function () {
+                        requestAnimationFrame(function () {
+                            img.classList.add('svg-revealed');
+                        });
+                    });
+                }, EXTRA_DELAY_MS);
+            }
+
+            function checkSvgReady() {
+                const svg = hero.querySelector('svg, [data-hook="vector-art"]');
+                if (svg) {
+                    loadAndReveal();
+                    return true;
+                }
+                return false;
+            }
+
+            // If SVG is already rendered, start timer; otherwise observe DOM insertions
+            if (!checkSvgReady()) {
+                const observer = new MutationObserver(function (mutations, obs) {
+                    if (checkSvgReady()) {
+                        obs.disconnect();
+                    }
+                });
+                observer.observe(hero, { childList: true, subtree: true });
+            }
+        }
+
+        // Use MutationObserver on document.body so we strip the image instantly as soon as HTML parses
+        if (document.body) {
+            handleImageDeferral();
+        } else {
+            document.addEventListener('DOMContentLoaded', handleImageDeferral);
+        }
+    })();
+</script>

@@ -1,0 +1,20 @@
+<script>
+    console.log("In hero resize script!");
+
+    function resizeHero() {
+        const section = document.getElementById('comp-mshsf5ka');
+
+        if (!section) return;
+
+        const heroHeight = window.innerHeight;
+
+        section.style.minHeight = heroHeight + 'px';
+
+        console.log("Hero height->:", heroHeight);
+    }
+
+    resizeHero();
+
+    window.addEventListener('load', resizeHero);
+    window.addEventListener('resize', resizeHero);
+</script>

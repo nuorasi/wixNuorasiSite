@@ -1,0 +1,67 @@
+    <script>
+
+            function positionDownArrow() {
+
+            console.log("In positionDownArrow() ident 99291119002");
+
+            const arrow = document.getElementById("comp-muwkqa2t");
+            const hero1 = document.getElementById("comp-muin56p9");
+
+            if (!arrow || !hero1) {
+            console.log("Arrow or Hero1 not found");
+            return;
+        }
+
+            const heroRect = hero1.getBoundingClientRect();
+
+            console.log("Hero1 viewport top:", heroRect.top);
+            console.log("Arrow height:", arrow.offsetHeight);
+
+            // Position relative to viewport
+            arrow.style.position = "fixed";
+
+            // Place arrow above Hero1
+            arrow.style.top =
+            (heroRect.top - arrow.offsetHeight - 220) + "px";
+
+            // Center horizontally
+            arrow.style.left = "50%";
+            arrow.style.transform = "translateX(-50%)";
+
+            // Explicitly make arrow visible
+            arrow.style.display = "block";
+            arrow.style.visibility = "visible";
+            arrow.style.opacity = "1";
+
+            // Bring arrow forward
+            arrow.style.zIndex = "99999";
+
+            console.log(
+            "Down arrow positioned at:",
+            arrow.style.top
+            );
+
+            console.log(
+            "Arrow bounding rectangle:",
+            arrow.getBoundingClientRect()
+            );
+        }
+
+            window.addEventListener("load", () => {
+            setTimeout(positionDownArrow, 500);
+        });
+
+            window.addEventListener("resize", positionDownArrow);
+            window.addEventListener("scroll", positionDownArrow, { passive: true });
+
+
+
+        window.addEventListener("load", () => {
+            console.log("In function positionDownArrow() ident 99291119001  ");
+
+            setTimeout(positionDownArrow, 500);
+        });
+
+        window.addEventListener("resize", positionDownArrow);
+
+    </script>

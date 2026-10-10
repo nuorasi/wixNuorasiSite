@@ -368,7 +368,7 @@
                  ================================================= -->
 
             <g
-                    transform="translate(-125 -280)"
+                    transform="translate(-25 -280)"
                     clip-path="url(#hero-gold-clip)"
                     fill-rule="evenodd"
                     clip-rule="evenodd"
@@ -547,18 +547,6 @@
         function resizeParticleCanvas() {
             console.log("resizeParticleCanvas  2342d CALLED");
 
-            console.log(
-                "PARTICLE RESIZE",
-                {
-                    innerWidth: window.innerWidth,
-                    innerHeight: window.innerHeight,
-                    canvasRect:
-                        document
-                            .getElementById("particleCanvas")
-                            ?.getBoundingClientRect()
-                }
-            );
-
             const canvas = document.getElementById('particleCanvas');
 
             if (!canvas) return;
@@ -664,54 +652,30 @@
     <script src="https://cdn.jsdelivr.net/gh/nuorasi/wixNuorasiSite@85a431b/newParticle.js"></script>
 
     <script>
-        function refreshParticleSystem() {
+        //
+        // const fileId = '1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9';
+        // const driveUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+        //
+        // // Route through a public CORS proxy
+        // const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(driveUrl)}`;
+        //
+        // async function loadDriveAsset() {
+        //   try {
+        //     const response = await fetch(proxyUrl);
+        //     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        //
+        //     const data = await response.text(); // Use .json() if parsing JSON
+        //     console.log('File Content:', data);
+        //   } catch (error) {
+        //     console.error('Error fetching file:', error);
+        //   }
+        // }
 
-            console.log(">>>>>>>> refreshParticleSystem()");
+        //loadDriveAsset();
 
-            const canvas = document.getElementById("particleCanvas");
 
-            if (!canvas) {
-                console.log("particleCanvas not found");
-                return;
-            }
 
-            console.log(
-                "Canvas:",
-                canvas.getBoundingClientRect()
-            );
-
-            resizeParticleCanvas();
-
-            /*
-             * Force THREE renderer/camera to use the
-             * current Wix iframe dimensions.
-             */
-            if (
-                typeof renderer !== "undefined" &&
-                typeof camera !== "undefined"
-            ) {
-
-                const width = window.innerWidth;
-                const height = window.innerHeight;
-
-                renderer.setSize(
-                    width,
-                    height,
-                    false
-                );
-
-                camera.aspect =
-                    width / height;
-
-                camera.updateProjectionMatrix();
-
-                console.log(
-                    "Particle renderer refreshed:",
-                    width,
-                    height
-                );
-            }
-        }
+        console.log("End 2342g  Loading https://drive.google.com/file/d/1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9/view?usp=sharing")
 
     </script>
 
@@ -897,30 +861,12 @@
 
         });
 
-        window.addEventListener("load", () => {
+        //
+        // window.addEventListener(
+        //     "resize",
+        //     centerLogoOnWordmark
+        // );
 
-            console.log("WINDOW LOAD");
-
-            setTimeout(() => {
-                refreshParticleSystem();
-            }, 250);
-
-        });
-
-
-        window.addEventListener("pageshow", (event) => {
-
-            console.log(
-                "WINDOW PAGESHOW",
-                "persisted:",
-                event.persisted
-            );
-
-            setTimeout(() => {
-                refreshParticleSystem();
-            }, 250);
-
-        });
 
         console.log("Ident 2342z the end")
 

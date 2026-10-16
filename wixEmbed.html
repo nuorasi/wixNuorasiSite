@@ -810,6 +810,18 @@
                             document.body.classList.add(
                                 "hero-message-active"
                             );
+                            console.log(">>>>>>>>>  XXX--->>>> In wixEmbed.html hiding element img-comp-mv9gpxyq (aka down arrow) " );
+                            console.log("---------------------->>>>>>>   DOMContentLoaded - A");
+                            console.log(">>>>>>>>> XXX--->>>> display: " , document.getElementById('img-comp-mv9gpxyq'));
+                            document.addEventListener('DOMContentLoaded', () => {
+                                console.log("---------------------->>>>>>>   DOMContentLoaded - B");
+                                const element = document.getElementById('img-comp-mv9gpxyq');
+                                if (element) {
+                                    console.log(">>>>>>>>> XXX--->>>> display: " , element.style.display);
+                                } else {
+                                    console.log("Element 'img-comp-mv9gpxyq' was not found in the DOM.");
+                                }
+                            });
                         });
 
                     }, 150);

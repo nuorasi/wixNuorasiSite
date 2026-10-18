@@ -459,12 +459,20 @@
 // 3. Animation Loop with swarming physics
 // =========================================
 
+        // let cycleStartTime =
+        //     performance.now() / 1000;
+        //
+        // let currentCycleDuration =
+        //     10.1;
+// Initial swarm timing
+        const initialSwarmHold = 10.0;  // Seconds
+
+        const animationStartTime = performance.now() / 1000;
+
         let cycleStartTime =
-            performance.now() / 1000;
+            animationStartTime + initialSwarmHold;
 
-        let currentCycleDuration =
-            10.1;
-
+        let currentCycleDuration = 4.0;
 
 // Main animation
         function animate() {

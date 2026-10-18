@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="{{ asset('https://cdn.jsdelivr.net/gh/nuorasi/newTngSiteAssets/tngFavicon.jpg') }}">
+    <meta charset="UTF-8">
+
+
+
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            position: relative;
+        }
+
+
+        /* =========================================================
+           PARTICLE LAYER
+           ========================================================= */
+
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            display: block;
+
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* =========================================================
+           LOGO LAYER
+           ========================================================= */
+
+
+        #logoSVG {
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            z-index: 2;
+
+            pointer-events: none;
+        }
+
+        /*
+         #logoSVG {
+            position: absolute;
+
+            width: 1000px;
+            max-width: 90vw;
+            height: auto;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            display: block;
+
+            z-index: 2;
+            pointer-events: none;
+        }
+         */
+
+
+        /* =========================================================
+           HERO MESSAGE LAYER
+           ========================================================= */
+
+        #hero1 {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        #hero-message {
+            font-weight: 700;
+        }
+
+        #logoSVG {
+            transition:
+                    opacity 1.4s cubic-bezier(.22, 1, .36, 1),
+                    transform 1.4s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        #hero-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            width: min(1180px, 88vw);
+
+            transform: translate(-50%, calc(-50% + 18px));
+
+            z-index: 3;
+            pointer-events: none;
+
+            text-align: center;
+            white-space: normal;
+
+            font-family: Inter Avenir Next, Montserrat, Helvetica Neue, Arial, sans-serif;
+            font-size: clamp(30px, 4.2vw, 64px);
+            font-weight: 400;
+            line-height: 1.18;
+            letter-spacing: 0.01em;
+
+            color: #1D1D1F;
+
+            opacity: 0;
+
+            transition:
+                    opacity 1.4s cubic-bezier(.22, 1, .36, 1) 0.15s,
+                    transform 1.4s cubic-bezier(.22, 1, .36, 1) 0.15s;
+        }
+
+        /* Quick anticipation shrink before the logo expands away. */
+        body.hero-logo-shrink #logoSVG {
+            transform: scale(0.70);
+            transition:
+                    transform 0.15s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        body.hero-message-active #logoSVG {
+            opacity: 0;
+            transform: translateY(100px) scale(5.0);
+        }
+
+        body.hero-message-active #hero-message {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+
+
+        /* =========================================================
+           INITIAL HERO STATE
+           ========================================================= */
+
+        .hero-arc-reveal {
+            transform-box: fill-box;
+            transform-origin: 0% 50%;
+            transform: scaleX(0);
+        }
+
+
+        /* Wordmark starts hidden */
+
+        #hero-wordmark {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+
+        /* Tagline starts hidden */
+
+        #hero-tagline {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+
+        /* =========================================================
+           START ANIMATION
+           ========================================================= */
+
+        body.hero-animate #hero-gold-reveal {
+            animation:
+                    hero-reveal-arc
+                    0.8s
+                    cubic-bezier(.22, 1, .36, 1)
+                    0.05s
+                    forwards;
+        }
+
+
+        body.hero-animate #hero-blue-reveal {
+            animation:
+                    hero-reveal-arc
+                    0.9s
+                    cubic-bezier(.22, 1, .36, 1)
+                    0.22s
+                    forwards;
+        }
+
+
+        body.hero-animate #hero-wordmark {
+            animation:
+                    hero-fade-up
+                    0.65s
+                    cubic-bezier(.22, 1, .36, 1)
+                    0.45s
+                    forwards;
+        }
+
+
+        body.hero-animate #hero-tagline {
+            animation:
+                    hero-fade-up
+                    0.65s
+                    cubic-bezier(.22, 1, .36, 1)
+                    0.70s
+                    forwards;
+        }
+
+
+        /* =========================================================
+           ARC ANIMATION
+           ========================================================= */
+
+        @keyframes hero-reveal-arc {
+
+            from {
+                transform: scaleX(0);
+            }
+
+            to {
+                transform: scaleX(1);
+            }
+
+        }
+
+
+        /* =========================================================
+           TEXT ANIMATION
+           ========================================================= */
+
+        @keyframes hero-fade-up {
+
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+           ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .hero-arc-reveal {
+                transform: scaleX(1) !important;
+            }
+
+            #hero-wordmark,
+            #hero-tagline {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+
+            #logoSVG,
+            #hero-message {
+                transition: none !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     PARTICLES
+     ======================================================= -->
+
+<canvas id="particleCanvas"></canvas>
+
+<!-- =======================================================
+     hero1 id set
+     ======================================================= -->
+<section id="hero1">
+
+    <!-- =======================================================
+         NUORASI HERO LOGO
+         ======================================================= -->
+
+    <svg
+            id="logoSVG"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1500 450"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            aria-label="The Nuorasi Group"
+    >
+
+
+        <!-- ===================================================
+             CLIPPING REGIONS
+             =================================================== -->
+
+        <defs>
+
+            <clipPath id="hero-gold-clip">
+
+                <rect
+                        id="hero-gold-reveal"
+                        class="hero-arc-reveal"
+                        x="300"
+                        y="300"
+                        width="850"
+                        height="140"
+                />
+
+            </clipPath>
+
+
+            <clipPath id="hero-blue-clip">
+
+                <rect
+                        id="hero-blue-reveal"
+                        class="hero-arc-reveal"
+                        x="400"
+                        y="300"
+                        width="850"
+                        height="140"
+                />
+
+            </clipPath>
+
+        </defs>
+
+
+
+        <!-- ===================================================
+             COMPLETE LOGO ARTWORK
+
+             The artwork is moved upward 60 SVG units so that
+             its VISUAL center matches the center of the
+             1500 x 450 viewBox.
+             =================================================== -->
+
+        <g
+                id="logoArtwork"
+                transform="translate(0 -60)"
+        >
+
+
+            <!-- =================================================
+                 GOLD ARC
+                 ================================================= -->
+
+            <g
+                    transform="translate(-28 -280)"
+                    clip-path="url(#hero-gold-clip)"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    shape-rendering="geometricPrecision"
+            >
+
+                <path
+                        fill="#F2C229"
+                        d="
+                    M 352.00 412.00
+                    C 472.67 374.21 593.33 342.03 714.00 334.00
+                    C 834.67 325.01 955.33 329.66 1076.00 364.00
+                    L 1076.00 364.00
+                    C 955.33 336.02 834.67 330.90 714.00 340.00
+                    C 593.33 349.92 472.67 379.45 352.00 413.00
+                    Z
+                "
+                />
+
+            </g>
+
+
+
+            <!-- =================================================
+                 BLUE ARC
+                 ================================================= -->
+
+            <g
+                    transform="translate(-28 -280)"
+                    clip-path="url(#hero-blue-clip)"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    shape-rendering="geometricPrecision"
+            >
+
+                <path
+                        fill="#04A8E2"
+                        d="
+                    M 449.00 402.00
+                    C 572.04 361.74 695.09 344.86 818.13 345.00
+                    C 940.76 345.35 1063.37 368.94 1186.00 410.00
+                    L 1186.00 410.00
+                    C 1063.37 378.80 940.76 352.77 818.13 354.00
+                    C 695.09 350.37 572.04 373.03 449.00 403.00
+                    Z
+                "
+                />
+
+            </g>
+
+
+
+            <!-- =================================================
+                 WORDMARK
+
+                 ================================================= -->
+
+            <text
+                    id="hero-wordmark"
+                    x="750"
+                    y="230"
+                    text-anchor="middle"
+                    font-family="Avenir Next, Montserrat, Helvetica Neue, Arial, sans-serif"
+                    font-size="118"
+                    font-weight="300"
+                    letter-spacing="-4"
+            ><tspan fill="#152d70">the </tspan><tspan
+                    fill="#0B8FD3"
+                    font-weight="400"
+            >nuorasi</tspan><tspan fill="#152d70"> group</tspan></text>
+
+
+
+            <!-- =================================================
+                 TAGLINE!
+                 ================================================= -->
+
+            <text
+                    id="hero-tagline"
+                    x="750"
+                    y="308"
+                    text-anchor="middle"
+                    font-family="Avenir Next, Montserrat, Helvetica Neue, Arial, sans-serif"
+                    font-size="42"
+                    font-weight="500"
+                    letter-spacing="0.8"
+                    fill="#152d70"
+            >Powering Intelligence. Engineering the Future.</text>
+
+
+        </g>
+
+
+    </svg>
+
+
+    <!-- =======================================================
+         HERO MESSAGE
+         Replaces the logo after the logo reveal completes.
+         The particle animation continues uninterrupted behind it.
+         ======================================================= -->
+
+    <div id="hero-message" aria-live="polite" >
+        Let’s simplify the sophisticated together.
+    </div>
+
+
+    <!-- =======================================================
+         THREE.JS
+         ======================================================= -->
+
+    <script>
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>   2342-0 wixEmbed html code starting VS 3.3 - code cleanup  10/03 2:07");
+        console.log("Start Loading...... 2342-1 https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
+    </script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
+    <script>
+        console.log(">>>> 2342-2  End Loading https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
+
+    </script>
+    <script>
+        console.log("*******************  2342-3 STARTING UP PARTICLE CODE 10/03 2:07 ")
+
+
+        //  import wixWindowFrontend from "wix-window-frontend";
+
+
+        //REPOSITION LOGO
+        function centerLogoOnWordmark() {
+            console.log(">>>>>>>>>>>> ident 2342a function centerLogoOnWordmark " );
+            const svg = document.getElementById("logoSVG");
+            const artwork = document.getElementById("logoArtwork");
+            const wordmark = document.getElementById("hero-wordmark");
+
+            if (!svg || !artwork || !wordmark) {
+                console.log("Logo  2342b centering elements not found");
+                return;
+            }
+
+            artwork.removeAttribute("transform");
+
+            const bbox = wordmark.getBBox();
+
+            const viewBox = svg.viewBox.baseVal;
+
+            const svgCenterY =
+                viewBox.y +
+                (viewBox.height / 2);
+
+            const wordmarkCenterY =
+                bbox.y +
+                (bbox.height / 2);
+
+            const offsetY =
+                svgCenterY -
+                wordmarkCenterY;
+
+            artwork.setAttribute(
+                "transform",
+                `translate(0 ${offsetY})`
+            );
+
+            console.log(
+                "Wordmark 2342c dynamically centered:",
+                {
+                    svgCenterY,
+                    wordmarkCenterY,
+                    offsetY
+                }
+            );
+        }
+
+
+        function resizeParticleCanvas() {
+            console.log("resizeParticleCanvas  2342d CALLED");
+
+            console.log(
+                "PARTICLE RESIZE",
+                {
+                    innerWidth: window.innerWidth,
+                    innerHeight: window.innerHeight,
+                    canvasRect:
+                        document
+                            .getElementById("particleCanvas")
+                            ?.getBoundingClientRect()
+                }
+            );
+
+            const canvas = document.getElementById('particleCanvas');
+
+            if (!canvas) return;
+
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            canvas.style.position = "absolute";
+            canvas.style.top = "0px";
+            canvas.style.left = "0px";
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+            //canvas.style.height = "500px";
+
+            if (typeof renderer !== "undefined") {
+
+                renderer.setSize(
+                    width,
+                    height,
+                    false
+                );
+            }
+
+            if (typeof camera !== "undefined") {
+
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+
+            }
+            console.log(">>>>>>>>>>>> DEBUG 2342e Ident 1 ");
+            centerLogoOnWordmark();
+        }
+
+
+
+        window.addEventListener(
+            'resize',
+            resizeParticleCanvas
+        );
+
+        window.addEventListener(
+            'orientationchange',
+            resizeParticleCanvas
+        );
+
+        window.addEventListener(
+            'load',
+            () => {
+                setTimeout(() => {
+                    resizeParticleCanvas();
+
+
+                }, 1000);
+            }
+        );
+        // const hero1 = document.getElementById('hero1');
+        //
+        // if (hero1) {
+        //
+        //     const resizeObserver =
+        //         new ResizeObserver(() => {
+        //
+        //             resizeParticleCanvas();
+        //
+        //         });
+        //
+        //     resizeObserver.observe(hero1);
+        // }
+
+        const hero1 = document.getElementById('hero1');
+
+        if (hero1) {
+
+            const resizeObserver =
+                new ResizeObserver(() => {
+
+                    console.log(
+                        "Hero size changed 2342f"
+                    );
+
+                    resizeParticleCanvas();
+
+
+
+                });
+
+            resizeObserver.observe(hero1);
+        }
+    </script>
+
+    <!-- =======================================================
+         PARTICLE ANIMATION
+         ======================================================= -->
+
+    <!--
+    <script src="https://drive.google.com/file/d/1uaaBypBDkrH9utup3wqj2H7ZFMLabMX9/view?usp=sharing";>
+      </script>
+     -->
+    <script>
+        console.log("LOADING https://cdn.jsdelivr.net/gh/nuorasi/wixNuorasiSite@85a431b/newParticle.js")
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/gh/nuorasi/wixNuorasiSite@85a431b/newParticle.js"></script>
+
+    <script>
+        function refreshParticleSystem() {
+
+            console.log(">>>>>>>> refreshParticleSystem()");
+
+            const canvas = document.getElementById("particleCanvas");
+
+            if (!canvas) {
+                console.log("particleCanvas not found");
+                return;
+            }
+
+            console.log(
+                "Canvas:",
+                canvas.getBoundingClientRect()
+            );
+
+            resizeParticleCanvas();
+
+            /*
+             * Force THREE renderer/camera to use the
+             * current Wix iframe dimensions.
+             */
+            if (
+                typeof renderer !== "undefined" &&
+                typeof camera !== "undefined"
+            ) {
+
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+
+                renderer.setSize(
+                    width,
+                    height,
+                    false
+                );
+
+                camera.aspect =
+                    width / height;
+
+                camera.updateProjectionMatrix();
+
+                console.log(
+                    "Particle renderer refreshed:",
+                    width,
+                    height
+                );
+            }
+        }
+
+    </script>
+
+
+    <!-- =======================================================
+         HERO ANIMATION CONTROL
+         ======================================================= -->
+
+    <script>
+
+
+        function positionHeroIndicator(inHeight) {
+
+            console.log(" >>>>>>>>>>>>>>>>>>>>  in function 2342h positionHeroIndicator() indicator = comp-muin56ou ")
+            const indicator = document.getElementById('comp-muin56ou');
+            console.log(">>>>>  const indicator ="+ document.getElementById('comp-muin56ou') )
+
+
+            const hero = document.getElementById('hero1');
+            console.log(">>>>>  Hero1 =", hero)
+
+            if (!indicator || !hero) {
+                console.log("Indicator 2342i  or hero1 not found");
+                return;
+            }
+
+            const heroRect = hero.getBoundingClientRect();
+
+            // Absolute page position of hero1
+            const heroTop = heroRect.top + window.scrollY;
+
+            // Position indicator just above hero1
+            indicator.style.position = 'absolute';
+
+            indicator.style.top = inHeight + 'px';
+
+            // Position near right side of page
+            indicator.style.right = '30px';
+            indicator.style.left = 'auto';
+
+            console.log("Indicator 2342j positioned at:", indicator.style.top);
+        }
+
+
+        window.addEventListener('load', positionHeroIndicator);
+        window.addEventListener('resize', positionHeroIndicator);
+
+        (function () {
+
+            let heroAnimationStarted = false;
+
+
+            function startHeroAnimation() {
+
+                if (heroAnimationStarted) {
+                    return;
+                }
+
+                heroAnimationStarted = true;
+
+                console.log(
+                    "Nuorasi Hero: 2342k  starting logo animation"
+                );
+
+                document.body.classList.add(
+                    "hero-animate"
+                );
+
+                /*
+                 * Keep the completed logo on screen briefly, then
+                 * crossfade it into the primary hero message.
+                 * Three.js is untouched, so the particle animation
+                 * continues to render behind both states.
+                 */
+                setTimeout(() => {
+
+                    /*
+                     * Anticipation beat: quickly shrink the completed logo
+                     * to 90%, then launch the existing expand/fade transition.
+                     */
+                    document.body.classList.add(
+                        "hero-logo-shrink"
+                    );
+
+                    setTimeout(() => {
+
+                        document.body.classList.remove(
+                            "hero-logo-shrink"
+                        );
+
+                        /*
+                         * Use the next animation frame so the browser commits
+                         * the 90% state before transitioning to scale(3.0).
+                         */
+                        requestAnimationFrame(() => {
+                            document.body.classList.add(
+                                "hero-message-active"
+                            );
+                            console.log(">>>>>>>>>  XXX--->>>> In wixEmbed.html hiding element img-comp-mv9gpxyq (aka down arrow) " );
+                            console.log("---------------------->>>>>>>   DOMContentLoaded - A");
+                            console.log(">>>>>>>>> XXX--->>>> display: " , document.getElementById('img-comp-mv9gpxyq'));
+                            document.addEventListener('DOMContentLoaded', () => {
+                                console.log("---------------------->>>>>>>   DOMContentLoaded - B");
+                                const element = document.getElementById('img-comp-mv9gpxyq');
+                                if (element) {
+                                    console.log(">>>>>>>>> XXX--->>>> display: " , element.style.display);
+                                } else {
+                                    console.log("Element 'img-comp-mv9gpxyq' was not found in the DOM.");
+                                }
+                            });
+                        });
+
+                    }, 150);
+
+                }, 4500);
+
+            }
+
+
+            /*
+             * Receive animation command from Wix parent page.
+             */
+
+            window.addEventListener(
+                "message",
+                function (event) {
+
+                    if (
+                        event.data &&
+                        event.data.type ===
+                        "nuorasi-start-hero-animation"
+                    ) {
+
+                        startHeroAnimation();
+
+                    }
+
+                }
+            );
+
+
+            /*
+             * Safety fallback.
+             */
+
+            setTimeout(
+                startHeroAnimation,
+                50
+            );
+
+
+        })();
+
+        function jogHomePage() {
+            console.log("In function 2342l jogHomePage")
+
+            window.scrollBy({
+                top: 300,
+                behavior: "smooth"
+            });
+        }
+
+
+
+
+
+        // function resizeHero() {
+        //     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Ident 278681  ****** In wixEmbed  ----- hero resizeHero function");
+        //     const section = document.getElementById('comp-mshsf5ka');
+        //     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Ident 278681  ****** In wixEmbed  ----- hero resizeHero function ->section:", section);
+        //     if (!section) return;
+        //
+        //     const heroHeight = window.innerHeight;
+        //
+        //     section.style.minHeight = heroHeight + 'px';
+        //
+        //     console.log("Hero height from newParticle.js:", heroHeight);
+        // }
+        //
+        // resizeHero();
+
+        // window.addEventListener('load', resizeHero);
+        // window.addEventListener('resize', resizeHero);
+        console.log(">>>>>>>>>>>> PRE ident 2342m - pre function centerLogoOnWordmark " );
+
+
+        window.addEventListener("load", () => {
+
+            document.fonts.ready.then(() => {
+                console.log(">>>>>>>>>>>> 2342n DEBUG Ident 1 ");
+
+                centerLogoOnWordmark();
+
+            });
+
+        });
+
+        window.addEventListener("load", () => {
+
+            console.log("WINDOW LOAD");
+
+            setTimeout(() => {
+                refreshParticleSystem();
+            }, 250);
+
+        });
+
+
+        window.addEventListener("pageshow", (event) => {
+
+            console.log(
+                "WINDOW PAGESHOW",
+                "persisted:",
+                event.persisted
+            );
+
+            setTimeout(() => {
+                refreshParticleSystem();
+            }, 250);
+
+        });
+
+        console.log("Ident 2342z the end")
+
+
+
+    </script>
+
+</section>
+
+</body>
+
+</html>

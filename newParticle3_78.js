@@ -1,83 +1,82 @@
-/* Nuorasi particle system | cleaned 2026-10-18
- * Three.js r128. This file exclusively owns the WebGL renderer and camera.
- * Preserves the original 800-particle swarm, colors, motion, and ready signal.
- */
-
-console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.78 VERSION: 10-18-26 12:50:00 PM");
-
-
-(function initNuorasiParticles() {
+/* Nuorasi particle system | 2026-10-18 WebGL and resize fixes */
+(function () {
     'use strict';
-
-    // Avoid creating another WebGL context if this script is injected twice.
-    if (window.__nuorasiParticlesActive) {
-        console.info('Nuorasi: particle system already initialized; skipping duplicate.');
-        return;
-    }
-
-    const canvas = document.getElementById('particleCanvas');
-    if (!canvas || !window.THREE) {
-        console.error('Nuorasi: particle canvas or Three.js library is missing.');
-        notifyParticleFailure('Canvas or Three.js missing');
-        return;
-    }
-
-    function notifyParticleFailure(reason) {
-        // The parent can release its preloader and retain the normal hero logo.
-        const message = { type: 'nuorasi-particles-error', reason };
-        if (window.parent && window.parent !== window) {
-            window.parent.postMessage(message, '*');
-        }
-        window.dispatchEvent(new CustomEvent('nuorasi-particles-error', { detail: message }));
-    }
-
-    let renderer;
-    let contextLost = false;
-    let animationFrameId = null;
-
     try {
+        if (typeof THREE === 'undefined') throw new Error('Three.js did not load');
+
+        console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.79 WEBGL FIX 2026-10-18");
+
+        console.log(
+            "Canvas:",
+            document.getElementById('particleCanvas')
+        );
+
+
+
+// 1. Setup Three.js Scene, Camera, and Renderer
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+
+        console.log(">>>>>>>>>>>>>>>>>>>>THREE.js:  window.innerWidth="+ window.innerWidth+" : window.innerHeight="+ window.innerHeight);
+        /*
+        PerspectiveCamera(fov, aspect, near, far).
+            Camera Parameters
+        • fov (Field of View): The vertical field of view measured in degrees. It defines how wide or narrow the camera view is (default is 50).
+        • aspect (Aspect Ratio): The ratio of the canvas width divided by its height (default is 1, usually calculated as width / height).
+        • near (Near Clipping Plane): The closest distance the camera can render objects (default is 0.1). Objects closer than this value are clipped out of the scene.
+        • far (Far Clipping Plane): The furthest distance the camera can render objects (default is 2000). Objects farther than this value are clipped out.
+
+        */
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+
         camera.position.z = 10;
 
-        // Request one context only; fail gracefully if the GPU refuses it.
-        renderer = new THREE.WebGLRenderer({
-            canvas: canvas,
+        const canvas = document.getElementById('particleCanvas');
+        if (!canvas) throw new Error('particleCanvas element is missing');
+
+// Only one particle renderer per document/iframe.
+        if (window.__nuorasiParticleInitialized) {
+            console.warn('Nuorasi particle system already initialized; skipping duplicate');
+            return;
+        }
+        window.__nuorasiParticleInitialized = true;
+
+// WebGL context failure is caught by the outer startup guard below.
+// A successful context allocation is not guaranteed on all browsers/devices.
+        const renderer = new THREE.WebGLRenderer({
+            canvas,
             alpha: true,
             antialias: false,
             powerPreference: 'default'
         });
-        window.__nuorasiParticlesActive = true;
+
+        let contextLost = false;
+        canvas.addEventListener('webglcontextlost', (event) => {
+            event.preventDefault();
+            contextLost = true;
+            console.warn('Nuorasi WebGL context lost; waiting for restoration');
+        });
+        canvas.addEventListener('webglcontextrestored', () => {
+            contextLost = false;
+            resizeRenderer();
+            console.info('Nuorasi WebGL context restored');
+        });
 
         function resizeRenderer() {
-            if (contextLost) return;
-            const width = Math.max(1, Math.round(window.innerWidth));
-            const height = Math.max(1, Math.round(window.innerHeight));
-            const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
-            renderer.setPixelRatio(pixelRatio);
+            const width = Math.max(1, window.innerWidth);
+            const height = Math.max(1, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
             renderer.setSize(width, height, false);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
         }
 
-        // Called by the HTML wrapper when the Wix embed changes size.
         window.nuorasiResizeParticles = resizeRenderer;
         window.addEventListener('resize', resizeRenderer);
-        window.addEventListener('orientationchange', resizeRenderer);
-
-        canvas.addEventListener('webglcontextlost', (event) => {
-            event.preventDefault();
-            contextLost = true;
-            if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
-            console.warn('Nuorasi: WebGL context lost');
-        });
-        canvas.addEventListener('webglcontextrestored', () => {
-            contextLost = false;
-            resizeRenderer();
-            animate();
-            console.info('Nuorasi: WebGL context restored');
-        });
-
         resizeRenderer();
 
 // 2. Setup Particles (Swarming Orbs)
@@ -470,8 +469,9 @@ console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.78 VERSION: 10-18-26 
 // Main animation
         function animate() {
 
-            if (contextLost) return;
-            animationFrameId = requestAnimationFrame(animate);
+            requestAnimationFrame(
+                animate
+            );
 
 
             // Handle mode transition
@@ -914,6 +914,8 @@ console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.78 VERSION: 10-18-26 
 
 
             // Render the completed particle scene
+            if (contextLost) return;
+
             renderer.render(
                 scene,
                 camera
@@ -930,18 +932,25 @@ console.log("Hello FROM newParticle.js!!!!!!!!!!!!!! REV 3.78 VERSION: 10-18-26 
         }
 
 
-// Start the particle animation after successful setup.
+// Start animation loop
         animate();
-        console.info('Nuorasi particles initialized', {
-            width: renderer.domElement.width,
-            height: renderer.domElement.height
-        });
+        console.log(
+            "Canvas final size:",
+            renderer.domElement.width,
+            renderer.domElement.height
+        );
 
+        console.log(
+            "Canvas CSS:",
+            renderer.domElement.getBoundingClientRect()
+        );
     } catch (error) {
-        window.__nuorasiParticlesActive = false;
-        delete window.nuorasiResizeParticles;
-        console.error('Nuorasi: unable to initialize particle renderer:', error);
-        notifyParticleFailure(error && error.message ? error.message : String(error));
-        // No false particles-ready signal. Logo/message animation continues.
+        window.__nuorasiParticleInitialized = false;
+        console.error('Nuorasi particle startup failed:', error);
+        const detail = { reason: String(error && error.message || error) };
+        window.dispatchEvent(new CustomEvent('nuorasi-particles-error', { detail }));
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'nuorasi-particles-error', reason: detail.reason }, '*');
+        }
     }
 })();

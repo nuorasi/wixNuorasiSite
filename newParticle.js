@@ -500,7 +500,7 @@ let cycleStartTime =
     performance.now() / 1000;
 
 let currentCycleDuration =
-    10.0;
+    10.1;
 
 
 // Main animation

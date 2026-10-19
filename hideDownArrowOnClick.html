@@ -2,14 +2,56 @@
     window.addEventListener("load", () => {
 
         console.log("In addEventListener 'load' - Ident 2965a");
-        const button = document.getElementById("img-comp-muwkqa2t");
+
+        const button = document.getElementById("img-comp-mve76ylx");
 
         if (button) {
+
+            button.style.cursor = "pointer";
+
             button.addEventListener("click", function () {
-                console.log("Button id->img-comp-muwkqa2t was clicked Ident 2965b");
+
+                console.log("Down arrow clicked Ident 2965b");
+
+                // Hide the down arrow
                 button.style.display = "none";
+
+                // Scroll down 100 pixels over 2 seconds
+                smoothScrollBy(100, 2000);
+
             });
         }
-
     });
+
+    function smoothScrollBy(distance, duration) {
+
+        const startY = window.scrollY;
+        const startTime = performance.now();
+
+        // Cubic ease-in-out
+        function easeInOutCubic(t) {
+            return t < 0.5
+                ? 4 * t * t * t
+                : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        function animateScroll(currentTime) {
+
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            const easedProgress = easeInOutCubic(progress);
+
+            window.scrollTo(
+                0,
+                startY + distance * easedProgress
+            );
+
+            if (progress < 1) {
+                requestAnimationFrame(animateScroll);
+            }
+        }
+
+        requestAnimationFrame(animateScroll);
+    }
 </script>
